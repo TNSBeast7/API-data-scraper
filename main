@@ -1,39 +1,32 @@
-import urllib.request
 import json
+import urllib.request
 
-# Using an open, developer-friendly test feed that won't block me
 url = "https://jsonplaceholder.typicode.com/posts"
-req = urllib.request.Request(url)
+req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
 
 try:
-    # Adding timeout=10 means if it takes longer than 10 seconds,it will stop trying
     print("Connecting and fetching data...")
     with urllib.request.urlopen(req, timeout=10) as response:
         raw_data = response.read()
-        #This file contaions a direct list of data cards
         jobs = json.loads(raw_data)
 
-    #1. Choose your search word
-    # Python will now pause and wait for you to type your search term!
-    keyword = input("Enter a keyword to search for (try 'qui' or 'dolor'):")
+    # Convert search keyword to lowercase for case insensitive matching
+    keyword = input("Enter a keyword to search for (e.g., 'qui' or 'dolor'): ").strip().lower()
 
-    #Open a brand new permanent text file to write into!
-    with open("search_results.txt", "w", encoding = "utf-8") as file:
+    matches_found = 0
 
-        #we write header to the file.
-        #Note: \n tells the computer to jump to a new line (like pressing ENTER)
+    with open("search_results.txt", "w", encoding="utf-8") as file:
         file.write(f"--- Search Results For: '{keyword}' ---\n\n")
-        
-        # FIXED: This loop is now indented so it stays inside the file block!
+
         for job in jobs:
-            #2. The upgraded bouncer loop for job in jobs:
-            if keyword in job['title']:
-                #Instead of printing to screen, we save it to the file!
+            # Case-insensitive title check
+            if keyword in job["title"].lower():
                 file.write(f"TOPIC: {job['title']}\n")
                 file.write(f"DETAIL: {job['body']}\n")
-                file.write("_" * 30 + "\n") # Added \n here so the dashes drop down!
-                
-    print("Success! Your results are soooooo GOATED and saved to search_results.txt!!!")
-   
+                file.write("-" * 30 + "\n\n")
+                matches_found += 1
+
+    print(f"Success! Found {matches_found} matching record(s) saved to search_results.txt.")
+
 except Exception as e:
-    print(f"\nConnection gave an error: {e}")
+    print(f"An error occurred during processing: {e}")
