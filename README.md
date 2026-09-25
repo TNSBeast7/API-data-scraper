@@ -4,8 +4,11 @@ A lightweight Python data pipeline that fetches live JSON payloads from external
 
  Features
 1.REST API Integration:Connects to public HTTP endpoints using `requests` with custom headers and network timeouts.
+
 2.Dynamic CLI Search:Filters raw JSON payloads based on user defined search parameters (city or company).
+
 3.Automated File Output:Writes clean, formatted report summaries directly to disk.
+
 4.Robust Error Handling:Protects against network timeouts, HTTP errors (`403`, `404`), and file I/O failures.
 
  Prerequisites
