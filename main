@@ -13,6 +13,8 @@ try:
         #This file contaions a direct list of data cards
         jobs = json.loads(raw_data)
 
+    matches_found = 0
+
     #1. Choose your search word
     # Python will now pause and wait for you to type your search term!
     keyword = input("Enter a keyword to search for (try 'qui' or 'dolor'):")
@@ -32,9 +34,10 @@ try:
                 file.write(f"TOPIC: {job['title']}\n")
                 file.write(f"DETAIL: {job['body']}\n")
                 file.write("_" * 30 + "\n") # Added \n here so the dashes drop down!
-                
-    print("Success! Your results good and saved to search_results.txt!!!")
+                matches_found += 1 #match found
+
+    # Status Output
+    print(f"Success! Found {matches_found} matching record(s). Results saved to search_results.txt.")
    
 except Exception as e:
     print(f"\nConnection gave an error: {e}")
-
