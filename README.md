@@ -3,6 +3,7 @@
 A lightweight Python data pipeline that fetches live JSON payloads from external REST APIs, provides interactive keyword filtering, and automates structured local report generation with full exception handling.
 
  Features
+
 1.REST API Integration:Connects to public HTTP endpoints using `requests` with custom headers and network timeouts.
 
 2.Dynamic CLI Search:Filters raw JSON payloads based on user defined search parameters (city or company).
